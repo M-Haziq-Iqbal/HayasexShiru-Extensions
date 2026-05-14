@@ -37,7 +37,7 @@ export default new class Nyaa {
     let query = title.replace(/[^\w\s-]/g, ' ').trim()
     if (episode) query += ` ${episode.toString().padStart(2, '0')}`
 
-    const res = await fetch(this.base + encodeURIComponent(query) + '%201080')
+    const res = await fetch(this.base + encodeURIComponent(query))
     const json = await res.json()
     const list = json.data || []   // 👈 get only the array
 
@@ -51,7 +51,7 @@ export default new class Nyaa {
       size: toKB(item.size),
       date: new Date(item.time),
       category: item.category,
-      accuracy: 'medium',
+      accuracy: 'high'? 'high' : 'medium',
       type: 'alt'
     }))
   }
