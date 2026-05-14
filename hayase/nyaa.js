@@ -51,7 +51,7 @@ export default new class Nyaa {
       size: toKB(item.size),
       date: new Date(item.time),
       category: item.category,
-      accuracy: 'high' ? 'high' : 'medium',
+      accuracy: 'medium',
       type: 'alt'
     }))
   }
