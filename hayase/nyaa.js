@@ -48,7 +48,7 @@ export default new class Nyaa {
       seeders: Number(item.seeders || 0),
       leechers: Number(item.leechers || 0),
       downloads: Number(item.downloads || 0),
-      size: toKB(item.size),
+      size: 0,//toKB(item.size),
       date: new Date(item.time),
       accuracy: 'high'? 'high' : 'medium',
       type: 'alt'
