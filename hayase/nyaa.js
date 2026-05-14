@@ -50,7 +50,6 @@ export default new class Nyaa {
       downloads: Number(item.downloads || 0),
       size: toKB(item.size),
       date: new Date(item.time),
-      category: item.category,
       accuracy: 'high'? 'high' : 'medium',
       type: 'alt'
     }))
