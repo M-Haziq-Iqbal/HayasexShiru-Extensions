@@ -11,7 +11,7 @@ export default new class Nyaa {
 
   async search(title, episode) {
 
-    function toKB(sizeStr) {
+    function toBytes(sizeStr) {
       if (!sizeStr) return 0
     
       const match = sizeStr.match(/([\d.]+)\s*(KiB|MiB|GiB|TiB|KB|MB|GB|TB)/i)
@@ -21,14 +21,17 @@ export default new class Nyaa {
       const unit = match[2].toUpperCase()
     
       const multipliers = {
-        KB: 1,
-        KIB: 1,
-        MB: 1024,
-        MIB: 1024,
-        GB: 1024 * 1024,
-        GIB: 1024 * 1024,
-        TB: 1024 * 1024 * 1024,
-        TIB: 1024 * 1024 * 1024
+        KB: 1024,
+        KIB: 1024,
+    
+        MB: 1024 ** 2,
+        MIB: 1024 ** 2,
+    
+        GB: 1024 ** 3,
+        GIB: 1024 ** 3,
+    
+        TB: 1024 ** 4,
+        TIB: 1024 ** 4
       }
     
       return Math.round(value * (multipliers[unit] || 0))
@@ -48,7 +51,7 @@ export default new class Nyaa {
       seeders: Number(item.seeders || 0),
       leechers: Number(item.leechers || 0),
       downloads: Number(item.downloads || 0),
-      size: toKB(item.size),
+      size: toBytes(item.size),
       date: new Date(item.time),
       accuracy: 'high'? 'high' : 'medium',
       type: 'alt'
