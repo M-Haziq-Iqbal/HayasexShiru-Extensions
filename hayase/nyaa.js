@@ -1,5 +1,5 @@
 export default new class Nyaa {
-  base = 'https://nyaaapi.onrender.com/nyaa?q=1080'
+  base = 'https://nyaaapi.onrender.com/nyaa?q='
 
   async single({ titles, episode }) {
     if (!titles?.length) return []
@@ -37,7 +37,7 @@ export default new class Nyaa {
     let query = title.replace(/[^\w\s-]/g, ' ').trim()
     if (episode) query += ` ${episode.toString().padStart(2, '0')}`
 
-    const res = await fetch(this.base + encodeURIComponent(query))
+    const res = await fetch(this.base + encodeURIComponent(query) + '%201080')
     const json = await res.json()
     const list = json.data || []   // 👈 get only the array
 
@@ -48,7 +48,7 @@ export default new class Nyaa {
       seeders: Number(item.seeders || 0),
       leechers: Number(item.leechers || 0),
       downloads: Number(item.downloads || 0),
-      size: 0,//toKB(item.size),
+      size: toKB(item.size),
       date: new Date(item.time),
       accuracy: 'high'? 'high' : 'medium',
       type: 'alt'
