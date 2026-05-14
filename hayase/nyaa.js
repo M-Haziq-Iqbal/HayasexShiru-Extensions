@@ -1,5 +1,5 @@
 export default new class Nyaa {
-  base = 'https://nyaaapi.onrender.com/nyaa?q='
+  base = 'https://nyaaapi.onrender.com/nyaa?q=1080'
 
   async single({ titles, episode }) {
     if (!titles?.length) return []
@@ -24,10 +24,10 @@ export default new class Nyaa {
       seeders: Number(item.seeders || 0),
       leechers: Number(item.leechers || 0),
       downloads: Number(item.downloads || 0),
-      size: item.size,
+      size: Number(item.size),
       date: new Date(item.time),
       category: item.category,
-      accuracy: 'medium',
+      accuracy: high ? 'high' : 'medium',
       type: 'alt'
     }))
   }
