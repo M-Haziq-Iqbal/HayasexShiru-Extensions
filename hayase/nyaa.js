@@ -27,7 +27,7 @@ export default new class Nyaa {
       size: Number(item.size),
       date: new Date(item.time),
       category: item.category,
-      accuracy: high ? 'high' : 'medium',
+      accuracy: 'high' ? 'high' : 'medium',
       type: 'alt'
     }))
   }
