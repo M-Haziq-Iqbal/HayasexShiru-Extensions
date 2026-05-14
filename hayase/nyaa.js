@@ -14,18 +14,19 @@ export default new class Nyaa {
     if (episode) query += ` ${episode.toString().padStart(2, '0')}`
 
     const res = await fetch(this.base + encodeURIComponent(query))
-    const data = await res.json()
-    if (!Array.isArray(data)) return []
+    const json = await res.json()
+    const list = json.data || []   // 👈 get only the array
 
-    return data.map(item => ({
-      title: item.Name,
-      link: item.Magnet,
-      hash: item.Magnet?.match(/btih:([A-Fa-f0-9]+)/)?.[1] || '',
-      seeders: Number(item.Seeders || 0),
-      leechers: Number(item.Leechers || 0),
-      downloads: Number(item.Downloads || 0),
-      size: 0,
-      date: new Date(item.DateUploaded),
+    return list.map(item => ({
+      title: item.title,
+      link: item.magnet,
+      hash: item.magnet?.match(/btih:([A-Fa-f0-9]+)/)?.[1] || '',
+      seeders: Number(item.seeders || 0),
+      leechers: Number(item.leechers || 0),
+      downloads: Number(item.downloads || 0),
+      size: item.size,
+      date: new Date(item.time),
+      category: item.category,
       accuracy: 'medium',
       type: 'alt'
     }))
